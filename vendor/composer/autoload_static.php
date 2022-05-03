@@ -7,15 +7,13 @@ namespace Composer\Autoload;
 class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -26,11 +24,13 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
     );
 
@@ -87,6 +87,8 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         ),
         'R' => 
         array (
+            'Rollbar\\Laravel\\' => 16,
+            'Rollbar\\' => 8,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
@@ -178,8 +180,8 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -313,6 +315,14 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         array (
             0 => __DIR__ . '/..' . '/spatie/backtrace/src',
         ),
+        'Rollbar\\Laravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rollbar/rollbar-laravel/src',
+        ),
+        'Rollbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rollbar/rollbar/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -335,8 +345,8 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -4307,6 +4317,58 @@ class ComposerStaticInit2023fcfd233617e8dcad70ed83c3ab44
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
+        'Rollbar\\Config' => __DIR__ . '/..' . '/rollbar/rollbar/src/Config.php',
+        'Rollbar\\DataBuilder' => __DIR__ . '/..' . '/rollbar/rollbar/src/DataBuilder.php',
+        'Rollbar\\DataBuilderInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/DataBuilderInterface.php',
+        'Rollbar\\Defaults' => __DIR__ . '/..' . '/rollbar/rollbar/src/Defaults.php',
+        'Rollbar\\ErrorWrapper' => __DIR__ . '/..' . '/rollbar/rollbar/src/ErrorWrapper.php',
+        'Rollbar\\FilterInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/FilterInterface.php',
+        'Rollbar\\Handlers\\AbstractHandler' => __DIR__ . '/..' . '/rollbar/rollbar/src/Handlers/AbstractHandler.php',
+        'Rollbar\\Handlers\\ErrorHandler' => __DIR__ . '/..' . '/rollbar/rollbar/src/Handlers/ErrorHandler.php',
+        'Rollbar\\Handlers\\ExceptionHandler' => __DIR__ . '/..' . '/rollbar/rollbar/src/Handlers/ExceptionHandler.php',
+        'Rollbar\\Handlers\\FatalHandler' => __DIR__ . '/..' . '/rollbar/rollbar/src/Handlers/FatalHandler.php',
+        'Rollbar\\Laravel\\AgentHandler' => __DIR__ . '/..' . '/rollbar/rollbar-laravel/src/AgentHandler.php',
+        'Rollbar\\Laravel\\MonologHandler' => __DIR__ . '/..' . '/rollbar/rollbar-laravel/src/MonologHandler.php',
+        'Rollbar\\Laravel\\RollbarServiceProvider' => __DIR__ . '/..' . '/rollbar/rollbar-laravel/src/RollbarServiceProvider.php',
+        'Rollbar\\LevelFactory' => __DIR__ . '/..' . '/rollbar/rollbar/src/LevelFactory.php',
+        'Rollbar\\Payload\\Body' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Body.php',
+        'Rollbar\\Payload\\ContentInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/ContentInterface.php',
+        'Rollbar\\Payload\\Context' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Context.php',
+        'Rollbar\\Payload\\Data' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Data.php',
+        'Rollbar\\Payload\\EncodedPayload' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/EncodedPayload.php',
+        'Rollbar\\Payload\\ExceptionInfo' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/ExceptionInfo.php',
+        'Rollbar\\Payload\\Frame' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Frame.php',
+        'Rollbar\\Payload\\Level' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Level.php',
+        'Rollbar\\Payload\\Message' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Message.php',
+        'Rollbar\\Payload\\Notifier' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Notifier.php',
+        'Rollbar\\Payload\\Payload' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Payload.php',
+        'Rollbar\\Payload\\Person' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Person.php',
+        'Rollbar\\Payload\\Request' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Request.php',
+        'Rollbar\\Payload\\Server' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Server.php',
+        'Rollbar\\Payload\\Trace' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/Trace.php',
+        'Rollbar\\Payload\\TraceChain' => __DIR__ . '/..' . '/rollbar/rollbar/src/Payload/TraceChain.php',
+        'Rollbar\\Response' => __DIR__ . '/..' . '/rollbar/rollbar/src/Response.php',
+        'Rollbar\\ResponseHandlerInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/ResponseHandlerInterface.php',
+        'Rollbar\\Rollbar' => __DIR__ . '/..' . '/rollbar/rollbar/src/Rollbar.php',
+        'Rollbar\\RollbarJsHelper' => __DIR__ . '/..' . '/rollbar/rollbar/src/RollbarJsHelper.php',
+        'Rollbar\\RollbarLogger' => __DIR__ . '/..' . '/rollbar/rollbar/src/RollbarLogger.php',
+        'Rollbar\\Scrubber' => __DIR__ . '/..' . '/rollbar/rollbar/src/Scrubber.php',
+        'Rollbar\\ScrubberInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/ScrubberInterface.php',
+        'Rollbar\\Senders\\AgentSender' => __DIR__ . '/..' . '/rollbar/rollbar/src/Senders/AgentSender.php',
+        'Rollbar\\Senders\\CurlSender' => __DIR__ . '/..' . '/rollbar/rollbar/src/Senders/CurlSender.php',
+        'Rollbar\\Senders\\FluentSender' => __DIR__ . '/..' . '/rollbar/rollbar/src/Senders/FluentSender.php',
+        'Rollbar\\Senders\\SenderInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/Senders/SenderInterface.php',
+        'Rollbar\\SerializerInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/SerializerInterface.php',
+        'Rollbar\\TransformerInterface' => __DIR__ . '/..' . '/rollbar/rollbar/src/TransformerInterface.php',
+        'Rollbar\\Truncation\\AbstractStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/AbstractStrategy.php',
+        'Rollbar\\Truncation\\FramesStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/FramesStrategy.php',
+        'Rollbar\\Truncation\\IStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/IStrategy.php',
+        'Rollbar\\Truncation\\MinBodyStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/MinBodyStrategy.php',
+        'Rollbar\\Truncation\\RawStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/RawStrategy.php',
+        'Rollbar\\Truncation\\StringsStrategy' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/StringsStrategy.php',
+        'Rollbar\\Truncation\\Truncation' => __DIR__ . '/..' . '/rollbar/rollbar/src/Truncation/Truncation.php',
+        'Rollbar\\Utilities' => __DIR__ . '/..' . '/rollbar/rollbar/src/Utilities.php',
+        'Rollbar\\UtilitiesTrait' => __DIR__ . '/..' . '/rollbar/rollbar/src/UtilitiesTrait.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
         'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',
