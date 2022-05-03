@@ -1,0 +1,39 @@
+on: push
+name: PHP CI
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:12.9
+        env:
+          POSTGRES_DATABASE: postgres        
+          POSTGRES_PASSWORD: 1111
+          POSTGRES_USER: postgres
+          POSTGRES_HOST: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+
+    - name: Setup project
+      run: make setup
+
+    - name: Run linter
+      run: make lint
+
+    - name: Run Tests
+      run: make test
