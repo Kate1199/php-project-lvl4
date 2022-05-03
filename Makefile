@@ -4,7 +4,6 @@ test:
 	php artisan test --testsuite=Feature
 deploy:
 	git push heroku
-
 lint:
 	composer exec --verbose phpcs
 log:
