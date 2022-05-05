@@ -8,7 +8,7 @@ jobs:
       postgres:
         image: postgres:12.9
         env:
-          POSTGRES_DATABASE: postgres        
+          POSTGRES_DATABASE: task_manager        
           POSTGRES_PASSWORD: 1111
           POSTGRES_USER: postgres
           POSTGRES_HOST: postgres
