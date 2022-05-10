@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskStatusRequest;
+use Illuminate\Support\Facades\Session;
 
 class TaskStatusController extends Controller
 {
@@ -14,7 +16,9 @@ class TaskStatusController extends Controller
      */
     public function index()
     {
-        //
+        $taskStatuses = TaskStatus::all();
+
+        return view('task_status.index', compact('taskStatuses'));
     }
 
     /**
@@ -24,7 +28,8 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
-        //
+        $taskStatus = new TaskStatus();
+        return view('task_status.create', compact('taskStatus'));
     }
 
     /**
@@ -33,20 +38,17 @@ class TaskStatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskStatusRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TaskStatus  $taskStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TaskStatus $taskStatus)
-    {
-        //
+        $taskStatus = new TaskStatus();
+        $taskStatus->fill($data);
+        $taskStatus->save();
+
+        Session::flash('flash_message', 'Статус успешно создан');
+
+        return redirect(route('task_statuses.index'));
     }
 
     /**
@@ -57,7 +59,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
-        //
+        return view('task_status.edit', compact('taskStatus'));
     }
 
     /**
@@ -67,9 +69,16 @@ class TaskStatusController extends Controller
      * @param  \App\Models\TaskStatus  $taskStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TaskStatus $taskStatus)
+    public function update(StoreTaskStatusRequest $request, TaskStatus $taskStatus)
     {
-        //
+        $data = $request->validated();
+
+        $taskStatus->fill($data);
+        $taskStatus->save();
+
+        flash('Cтатус успешно изменён', 'success');
+
+        return redirect(route('task_statuses.index'));
     }
 
     /**
@@ -80,6 +89,13 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        //
+        dump(23);
+        if ($taskStatus) {
+            $taskStatus->delete();
+        }
+
+        flash('Статус успешно удалён', 'success');
+
+        return redirect()->route('task_statuses.index');
     }
 }
