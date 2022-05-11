@@ -46,7 +46,7 @@ class TaskStatusController extends Controller
         $taskStatus->fill($data);
         $taskStatus->save();
 
-        Session::flash('flash_message', 'Статус успешно создан');
+        flash(__('messages.status_created'), 'success');
 
         return redirect(route('task_statuses.index'));
     }
@@ -76,7 +76,7 @@ class TaskStatusController extends Controller
         $taskStatus->fill($data);
         $taskStatus->save();
 
-        flash('Cтатус успешно изменён', 'success');
+        flash(__('messages.status_edited'), 'success');
 
         return redirect(route('task_statuses.index'));
     }
@@ -94,7 +94,7 @@ class TaskStatusController extends Controller
             $taskStatus->delete();
         }
 
-        flash('Статус успешно удалён', 'success');
+        flash(__('messages.status_deleted'), 'success');
 
         return redirect()->route('task_statuses.index');
     }
