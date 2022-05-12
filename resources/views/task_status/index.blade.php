@@ -16,7 +16,10 @@
       <th scope="col">{{ __('task_status.id') }}</th>
       <th scope="col">{{ __('task_status.name') }}</th>
       <th scope="col">{{ __('task_status.created_at') }}</th>
+      @guest
+      @else
       <th scope="col">{{ __('task_status.actions') }}</th>
+      @endguest
     </tr>
   </thead>
   <tbody>
@@ -25,11 +28,14 @@
           <th scope="row">{{ $taskStatus->id }}</th>
           <td>{{ $taskStatus->name }}</td>
           <td>{{ $taskStatus->created_at }}</td>
+          @guest
+          @else
           <td>
             <a href="{{ route('task_statuses.edit', $taskStatus) }}" class="text-decoration-none">{{ __('task_status.edit') }}</a>
             <a href="{{ route('task_statuses.destroy', $taskStatus) }}" data-confirm="Вы уверены?"
               data-method="delete" rel="nofollow" class="text-danger text-decoration-none">{{ __('task_status.delete') }}</a>
           </td>
+          @endguest
         </tr>
       @endforeach
   </tbody>
