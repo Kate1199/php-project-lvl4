@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\TaskStatus;
+use App\Models\User;
 
 class TaskStatusTest extends TestCase
 {
@@ -16,48 +18,46 @@ class TaskStatusTest extends TestCase
         $this->seed();
     }
 
+    public function testIndex(): void
+    {
+        $response = $this->get(route('task_statuses.index'));
+
+        $response->assertOk();
+    }
+
     public function testCreate(): void
     {
-        $response = $this->get(route('task_statuses.create'));
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)
+                        ->get(route('task_statuses.create'));
 
         $response->assertOk();
     }
 
     public function testStore(): void
     {
-        $taskStatus = TaskStatus::factory()->make();
+        $taskStatus = TaskStatus::factory()->create();
+        $this->post(route('task_statuses.store'), $taskStatus->toArray());
 
-        $this->post(route('task_statuses.store'), $taskStatus);
-
-        $this->assertDatabaseHas('task_statuses', $taskStatus);
-    }
-
-    public function testShow(): void
-    {
-        $response1 = $this->get(route('task_statuses.show', ['task_status' => 1]));
-        $response1->assertOk();
-
-        $response2 = $this->get(route('task_statuses.show', ['task_status' => 2]));
-        $response2->assertOk();
-
-        $response3 = $this->get(route('task_statuses.show', ['task_status' => 3]));
-        $response3->assertOk();
+        $this->assertModelExists($taskStatus);
     }
 
     public function testEdit(): void
     {
-        $response = $this->get(route('task_statuses.edit', ['task_status' => 1]));
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)
+                        ->get(route('task_statuses.edit', ['task_status' => 1]));
 
         $response->assertOk();
     }
 
     public function testUpdate(): void
     {
-        $editedTaskStatus = TaskStauts::factory()->make();
+        $editedTaskStatus = TaskStatus::factory()->create();
 
-        $this->patch(route('task_statuses.update', ['task_status' => 1]), $editedTaskStatus);
+        $this->patch(route('task_statuses.update', ['task_status' => 1], $editedTaskStatus));
 
-        $this->assertDatabaseHas('task_statuses', $editedTaskStatus);
+        $this->assertModelExists($editedTaskStatus);
     }
 
     public function testDestroy(): void

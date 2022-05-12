@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Model\TaskStatus;
+use App\Models\TaskStatus;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TaskStatus>
