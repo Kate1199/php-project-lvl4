@@ -2,13 +2,10 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\TaskStatus;
-use App\Models\User;
 
-class TaskStatusTest extends TestCase
+class TaskControllerTest extends TestCase
 {
     public function setUp(): void
     {
@@ -18,7 +15,7 @@ class TaskStatusTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->get(route('task_statuses.index'));
+        $response = $this->get(route('task.index'));
 
         $response->assertOk();
     }
@@ -27,15 +24,15 @@ class TaskStatusTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                        ->get(route('task_statuses.create'));
+                        ->get(route('task.create'));
 
         $response->assertOk();
     }
 
     public function testStore(): void
     {
-        $taskStatus = TaskStatus::factory()->create();
-        $this->post(route('task_statuses.store'), $taskStatus->toArray());
+        $taskStatus = Task::factory()->create();
+        $this->post(route('task.store'), $taskStatus->toArray());
 
         $this->assertModelExists($taskStatus);
     }
@@ -44,22 +41,24 @@ class TaskStatusTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                        ->get(route('task_statuses.edit', ['task_status' => 1]));
+                        ->get(route('task.edit', ['task' => 1]));
 
         $response->assertOk();
     }
 
     public function testUpdate(): void
     {
-        $editedTaskStatus = TaskStatus::factory()->create();
+        $editedTaskStatus = Task::factory()->create();
 
-        $this->patch(route('task_statuses.update', ['task_status' => 1], $editedTaskStatus));
+        $this->patch(route('task.update', ['task' => 1], $editedTaskStatus));
 
         $this->assertModelExists($editedTaskStatus);
     }
 
     public function testDestroy(): void
     {
-        
+        $task = $this->delete(route('task.destroy', ['task' => 1]));
+
+        $this->assertModelMissing($task);
     }
 }
