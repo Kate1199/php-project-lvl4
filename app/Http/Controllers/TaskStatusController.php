@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 class TaskStatusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,6 @@ class TaskStatusController extends Controller
     public function index()
     {
         $taskStatuses = TaskStatus::all();
-
         return view('task_status.index', compact('taskStatuses'));
     }
 
@@ -89,7 +93,6 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        dump(23);
         if ($taskStatus) {
             $taskStatus->delete();
         }
