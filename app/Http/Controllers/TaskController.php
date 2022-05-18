@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\TaskStatus;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -12,11 +17,29 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::all();
+        $filters = $request->input('filter');
+        $tasks = DB::table('tasks');
 
-        return view('task.index', $task);
+        if (! is_null($filters)) {
+            $tasks = $tasks->where([
+                ['status_id', '=', $filters['status_id']],
+                ['created_by_id', '=', $filters['created_by_id']],
+                ['assigned_to_id', '=', $filters['assigned_to_id']]
+            ]);
+        }
+
+        $tasks = $tasks->leftJoin('task_statuses', 'task_statuses.id', '=', 'tasks.status_id')
+                        ->leftJoin('users as users1', 'users1.id', '=', 'tasks.created_by_id')
+                        ->leftJoin('users as users2', 'users2.id', '=', 'tasks.assigned_to_id')
+                        ->select('tasks.*', 'task_statuses.name as status', 'users1.name as created_by', 'users2.name as assigned_to')
+                        ->get();
+
+        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
+        $users = User::all('id', 'name')->pluck('name', 'id');
+
+        return view('task.index', compact('tasks', 'taskStatuses', 'users', 'filters'));
     }
 
     /**
@@ -28,7 +51,10 @@ class TaskController extends Controller
     {
         $task = new Task();
 
-        return view('task.create', $task);
+        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
+        $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
+
+        return view('task.create', compact('task', 'taskStatuses', 'assignedToUsers'));
     }
 
     /**
@@ -37,9 +63,10 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         $data = $request->validated();
+        $data['created_by_id'] = Auth::id();
 
         $task = new Task();
         $task->fill($data);
@@ -47,7 +74,7 @@ class TaskController extends Controller
 
         flash(__('messages.task_created'), 'success');
 
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -58,7 +85,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('task.show', $task);
+        $status = TaskStatus::find($task->status_id)->name;
+
+        return view('task.show', compact('task', 'status'));
     }
 
     /**
@@ -69,7 +98,10 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('task.edit', $task);
+        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
+        $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
+
+        return view('task.edit', compact('task', 'taskStatuses', 'assignedToUsers'));
     }
 
     /**
@@ -79,7 +111,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(StoreTaskRequest $request, Task $task)
     {
         $data = $request->validated();
 
@@ -88,7 +120,7 @@ class TaskController extends Controller
 
         flash(__('messages.task_edited'), 'success');
 
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 
     /**

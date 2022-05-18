@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/send-email', [MailController::class, 'sendEmail']);
 
-Route::resource('task_statuses', TaskStatusController::class);
+Route::resources(
+    [
+        'task_statuses' => TaskStatusController::class,
+        'tasks' => TaskController::class
+    ]
+);

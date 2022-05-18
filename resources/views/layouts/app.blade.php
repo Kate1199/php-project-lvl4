@@ -36,8 +36,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a href={{ route("task_statuses.index") }} class="nav-link">
+                            <a href="{{ route('task_statuses.index') }}" class="nav-link">
                                 {{ __('layouts.statuses') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('tasks.index') }}" class="nav-link">
+                                {{ __('layouts.tasks')}}
                             </a>
                         </li>
                     </ul>
