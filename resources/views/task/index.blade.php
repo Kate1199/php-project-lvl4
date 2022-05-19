@@ -64,6 +64,10 @@
                         @guest
                         @else
                         <td>
+                            @if($task->created_by_id === $id)
+                            <a href="{{ route('tasks.destroy', $task->id) }}" data-confirm="Вы уверены?"
+                                data-method="delete" rel="nofollow" class="text-danger text-decoration-none">{{ __('task.delete') }}</a>
+                            @endif
                             <a href="{{ route('tasks.edit', $task->id) }}" class="text-decoration-none">
                                 {{ __('task.edit') }}
                             </a>
