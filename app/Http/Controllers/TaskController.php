@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class, 'task');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -38,8 +43,9 @@ class TaskController extends Controller
 
         $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
         $users = User::all('id', 'name')->pluck('name', 'id');
+        $id = Auth::id();
 
-        return view('task.index', compact('tasks', 'taskStatuses', 'users', 'filters'));
+        return view('task.index', compact('tasks', 'taskStatuses', 'users', 'filters', 'id'));
     }
 
     /**
@@ -137,6 +143,6 @@ class TaskController extends Controller
 
         flash(__('messages.delete_task'), 'success');
 
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 }
