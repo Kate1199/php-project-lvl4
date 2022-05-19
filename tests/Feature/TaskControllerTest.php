@@ -4,6 +4,12 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use App\Models\Task;
+use App\Models\TaskStatus;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\TaskStatusSeeder;
+use Database\Seeders\TaskSeeder;
 
 class TaskControllerTest extends TestCase
 {
@@ -15,7 +21,7 @@ class TaskControllerTest extends TestCase
 
     public function testIndex(): void
     {
-        $response = $this->get(route('task.index'));
+        $response = $this->get(route('tasks.index'));
 
         $response->assertOk();
     }
@@ -24,7 +30,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                        ->get(route('task.create'));
+                        ->get(route('tasks.create'));
 
         $response->assertOk();
     }
@@ -32,7 +38,7 @@ class TaskControllerTest extends TestCase
     public function testStore(): void
     {
         $taskStatus = Task::factory()->create();
-        $this->post(route('task.store'), $taskStatus->toArray());
+        $this->post(route('tasks.store'), $taskStatus->toArray());
 
         $this->assertModelExists($taskStatus);
     }
@@ -41,7 +47,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)
-                        ->get(route('task.edit', ['task' => 1]));
+                        ->get(route('tasks.edit', ['task' => 1]));
 
         $response->assertOk();
     }
@@ -50,14 +56,22 @@ class TaskControllerTest extends TestCase
     {
         $editedTaskStatus = Task::factory()->create();
 
-        $this->patch(route('task.update', ['task' => 1], $editedTaskStatus));
+        $this->patch(route('tasks.update', ['task' => 1], $editedTaskStatus));
 
         $this->assertModelExists($editedTaskStatus);
     }
 
     public function testDestroy(): void
     {
-        $task = $this->delete(route('task.destroy', ['task' => 1]));
+        $task = Task::first();
+        $created_by_id = $task->created_by_id;
+
+        $user = User::factory()->make([
+            'id' => $created_by_id
+        ]);
+
+        $this->actingAs($user)
+                ->delete(route('tasks.destroy', ['task' => $task->id]));
 
         $this->assertModelMissing($task);
     }
