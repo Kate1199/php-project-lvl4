@@ -3,7 +3,7 @@ start:
 test:
 	php artisan test --testsuite=Feature
 test-coverage:
-	vendor/bin/phpunit --coverage-html reports/
+	php artisan test --testsuite=Feature --coverage-html reports/
 deploy:
 	git push heroku
 lint:
