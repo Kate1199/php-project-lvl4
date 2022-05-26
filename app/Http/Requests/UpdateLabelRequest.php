@@ -13,7 +13,7 @@ class UpdateLabelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user();
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateLabelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string|max:255|required',
+            'description' => 'string|nullable'
         ];
     }
 }

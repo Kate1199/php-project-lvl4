@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreLabelRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreLabelRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user();
     }
 
     /**
@@ -24,7 +25,8 @@ class StoreLabelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'string|max:255|required',
+            'description' => 'string|nullable'
         ];
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskStatusController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LabelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::get('/send-email', [MailController::class, 'sendEmail']);
 Route::resources(
     [
         'task_statuses' => TaskStatusController::class,
-        'tasks' => TaskController::class
+        'tasks' => TaskController::class,
+        'labels' => LabelController::class,
     ]
 );

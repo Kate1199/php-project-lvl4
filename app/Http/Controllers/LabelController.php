@@ -8,6 +8,11 @@ use App\Models\Label;
 
 class LabelController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Label::class, 'label');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,9 @@ class LabelController extends Controller
      */
     public function index()
     {
-        //
+        $labels = Label::all();
+
+        return view('label.index', compact('labels'));
     }
 
     /**
@@ -25,7 +32,9 @@ class LabelController extends Controller
      */
     public function create()
     {
-        //
+        $label = new Label();
+
+        return view('label.create', compact('label'));
     }
 
     /**
@@ -36,18 +45,15 @@ class LabelController extends Controller
      */
     public function store(StoreLabelRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Label  $label
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Label $label)
-    {
-        //
+        $label = new Label();
+        $label->fill($data);
+        $label->save();
+
+        flash(__('messages.label_created'), 'success');
+
+        return redirect()->route('labels.index');
     }
 
     /**
@@ -58,7 +64,7 @@ class LabelController extends Controller
      */
     public function edit(Label $label)
     {
-        //
+        return view('label.edit', compact('label'));
     }
 
     /**
@@ -70,7 +76,14 @@ class LabelController extends Controller
      */
     public function update(UpdateLabelRequest $request, Label $label)
     {
-        //
+        $updatedData = $request->validated();
+
+        $label->fill($updatedData);
+        $label->save();
+
+        flash(__('messages.label_updated'), 'success');
+
+        return redirect()->route('labels.index');
     }
 
     /**
@@ -81,6 +94,13 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        //
+        if ($label && !$label->tasks) {
+            $label->delete();
+            flash(__('messages.label_deleted'), 'success');
+        } elseif ($label->tasks) {
+            flash(__('messages.label_in_use'), 'danger');
+        }
+
+        return redirect()->route('labels.index');
     }
 }

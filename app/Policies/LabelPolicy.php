@@ -16,9 +16,9 @@ class LabelPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user = null)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class LabelPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -53,7 +53,7 @@ class LabelPolicy
      */
     public function update(User $user, Label $label)
     {
-        //
+        return $user;
     }
 
     /**
@@ -65,7 +65,7 @@ class LabelPolicy
      */
     public function delete(User $user, Label $label)
     {
-        //
+        return $user;
     }
 
     /**
