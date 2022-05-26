@@ -21,5 +21,5 @@
 
 <div class="form-group mb-3">
     {{ Form::label('labels', __('task.labels')) }}
-    {{ Form::select('labels', ['a' => 'a'], null, ['placeholder' => '-------', 'class' => 'form-control']) }}
+    {{ Form::select('labels', $labels, null, ['placeholder' => '-------', 'class' => 'form-control', 'multiple' => 'multiple', 'name' => 'labels[]']) }}
 </div>
