@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @include('flash::message')
     <h5 class="mb-5">{{ __('task.tasks') }}</h5>
 
     <div class="d-flex mb-3">
