@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\User;
+use App\Models\Label;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTaskRequest;
 use Illuminate\Support\Facades\Auth;
@@ -59,8 +60,9 @@ class TaskController extends Controller
 
         $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
         $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
+        $labels = Label::all('id', 'name')->pluck('name', 'id');
 
-        return view('task.create', compact('task', 'taskStatuses', 'assignedToUsers'));
+        return view('task.create', compact('task', 'taskStatuses', 'assignedToUsers', 'labels'));
     }
 
     /**
@@ -78,6 +80,9 @@ class TaskController extends Controller
         $task->fill($data);
         $task->save();
 
+        $labels = $request->get('labels');
+        $task->labels()->sync($labels);
+
         flash(__('messages.task_created'), 'success');
 
         return redirect()->route('tasks.index');
@@ -92,8 +97,9 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $status = TaskStatus::find($task->status_id)->name;
+        $labels = $task->labels();
 
-        return view('task.show', compact('task', 'status'));
+        return view('task.show', compact('task', 'status', 'labels'));
     }
 
     /**
@@ -106,8 +112,9 @@ class TaskController extends Controller
     {
         $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
         $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
+        $labels = Label::all('id', 'name')->pluck('name', 'id');
 
-        return view('task.edit', compact('task', 'taskStatuses', 'assignedToUsers'));
+        return view('task.edit', compact('task', 'taskStatuses', 'assignedToUsers', 'labels'));
     }
 
     /**
@@ -124,6 +131,9 @@ class TaskController extends Controller
         $task->fill($data);
         $task->save();
 
+        $labels = $request->get('labels');
+        $task->labels()->sync($labels);
+
         flash(__('messages.task_edited'), 'success');
 
         return redirect()->route('tasks.index');
@@ -138,10 +148,11 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         if ($task) {
+            optional($task->labels())->detach();
             $task->delete();
         }
 
-        flash(__('messages.delete_task'), 'success');
+        flash(__('messages.task_deleted'), 'success');
 
         return redirect()->route('tasks.index');
     }
