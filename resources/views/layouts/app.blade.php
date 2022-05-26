@@ -45,6 +45,11 @@
                                 {{ __('layouts.statuses') }}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('labels.index') }}" class="nav-link">
+                                {{ __('layouts.labels') }}
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
