@@ -26,21 +26,24 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $filters = $request->input('filter');
+
         $tasks = DB::table('tasks');
 
         if (! is_null($filters)) {
-            $tasks = $tasks->where([
-                ['status_id', '=', $filters['status_id']],
-                ['created_by_id', '=', $filters['created_by_id']],
-                ['assigned_to_id', '=', $filters['assigned_to_id']]
-            ]);
+            foreach ($filters as $key => $filter) {
+                if (! is_null($filter)) {
+                    $tasks = $tasks->where([
+                        [$key, '=', $filter]
+                    ]);
+                }
+            }
         }
 
         $tasks = $tasks->leftJoin('task_statuses', 'task_statuses.id', '=', 'tasks.status_id')
                         ->leftJoin('users as users1', 'users1.id', '=', 'tasks.created_by_id')
                         ->leftJoin('users as users2', 'users2.id', '=', 'tasks.assigned_to_id')
                         ->select('tasks.*', 'task_statuses.name as status', 'users1.name as created_by', 'users2.name as assigned_to')
-                        ->get();
+                        ->paginate();
 
         $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
         $users = User::all('id', 'name')->pluck('name', 'id');
