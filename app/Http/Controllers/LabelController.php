@@ -94,10 +94,12 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if ($label && !$label->tasks) {
+        $tasksNumber = $label->tasks()->count();
+
+        if ($label && $tasksNumber === 0) {
             $label->delete();
             flash(__('messages.label_deleted'), 'success');
-        } elseif ($label->tasks) {
+        } elseif ($tasksNumber > 0) {
             flash(__('messages.label_in_use'), 'danger');
         }
 
