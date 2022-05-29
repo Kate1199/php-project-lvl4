@@ -4,6 +4,9 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     
+    env:
+      CC_TEST_REPORTER_ID: 0a9508657c3197a14a9cb44767247d0da5b86da88b720e4b596eb5a471bb05c0
+
     services:
       postgres:
         image: postgres:12.9
@@ -27,6 +30,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
+        coverage: xdebug
 
     - name: Setup project
       run: make setup
@@ -36,8 +40,6 @@ jobs:
 
     - name: Run code-climate test-coverage
       uses: paambaati/codeclimate-action@v2.6.0
-      env:
-        CC_TEST_REPORTER_ID: 0a9508657c3197a14a9cb44767247d0da5b86da88b720e4b596eb5a471bb05c0
       with:
         coverageCommand: make test-coverage
 
