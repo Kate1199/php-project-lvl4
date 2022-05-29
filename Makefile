@@ -3,7 +3,7 @@ start:
 test:
 	php artisan test --testsuite=Feature
 test-coverage:
-	 php artisan test --coverage-clover --testsuite=Feature
+	 php artisan test --testsuite=Feature --coverage-clover build/logs/clover.xml
 deploy:
 	git push heroku
 lint:
