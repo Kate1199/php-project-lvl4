@@ -22,6 +22,7 @@ class TaskStatusController extends Controller
     public function index()
     {
         $taskStatuses = TaskStatus::all();
+
         return view('task_status.index', compact('taskStatuses'));
     }
 
@@ -33,6 +34,7 @@ class TaskStatusController extends Controller
     public function create()
     {
         $taskStatus = new TaskStatus();
+
         return view('task_status.create', compact('taskStatus'));
     }
 
@@ -93,13 +95,12 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        $tasks = $taskStatus->tasks();
+        $tasksNumber = $taskStatus->tasks()->count();
 
-        if ($taskStatus && !is_null($tasks)) {
+        if ($taskStatus && $tasksNumber === 0) {
             $taskStatus->delete();
-
             flash(__('messages.status_deleted'), 'success');
-        } elseif (is_null($tasks)) {
+        } elseif ($tasksNumber > 0) {
             flash(__('messages.status_in_use'), 'danger');
         }
 
