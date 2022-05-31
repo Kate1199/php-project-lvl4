@@ -10,56 +10,71 @@ use App\Models\User;
 
 class TaskStatusTest extends TestCase
 {
+    private User $user;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->seed();
+        $this->user = User::factory()->create();
     }
 
     public function testIndex(): void
     {
         $response = $this->get(route('task_statuses.index'));
 
-        $response->assertOk();
+        $response->assertOk(route('task_statuses.index'));
     }
 
     public function testCreate(): void
     {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
                         ->get(route('task_statuses.create'));
 
-        $response->assertOk();
+        $response->assertOk(route('task_statuses.create'));
     }
 
     public function testStore(): void
     {
-        $taskStatus = TaskStatus::factory()->create();
-        $this->post(route('task_statuses.store'), $taskStatus->toArray());
+        $taskStatus = TaskStatus::factory()->make(['id' => '4']);
+        $response = $this->actingAs($this->user)
+                        ->post(route('task_statuses.store'), $taskStatus->toArray());
+
+        $response->assertRedirect(route('task_statuses.index'));
 
         $this->assertModelExists($taskStatus);
     }
 
     public function testEdit(): void
     {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)
-                        ->get(route('task_statuses.edit', ['task_status' => 1]));
+        $taskStatus = TaskStatus::first();
+        $response = $this->actingAs($this->user)
+                        ->get(route('task_statuses.edit', ['task_status' => $taskStatus->id]));
 
-        $response->assertOk();
+        $response->assertOk(route('task_statuses.edit', ['task_status' => $taskStatus->id]));
     }
 
     public function testUpdate(): void
     {
-        $editedTaskStatus = TaskStatus::factory()->create();
+        $currentTaskStatus = TaskStatus::first();
+        $editedTaskStatus = TaskStatus::factory()->make(['id' => $currentTaskStatus->id]);
 
-        $this->patch(route('task_statuses.update', ['task_status' => 1], $editedTaskStatus));
+        $response = $this->actingAs($this->user)
+                        ->patch(route('task_statuses.update', ['task_status' => $currentTaskStatus->id]), $editedTaskStatus->toArray());
+
+        $response->assertRedirect(route('task_statuses.index'));
 
         $this->assertModelExists($editedTaskStatus);
     }
 
     public function testDestroy(): void
     {
-        
+        $taskStatus = TaskStatus::first();
+        $response = $this->actingAs($this->user)
+                        ->delete(route('task_statuses.destroy', ['task_status' => $taskStatus->id]));
+
+        $response->assertRedirect(route('task_statuses.index'));
+
+        $this->assertModelMissing($taskStatus);
     }
 }
