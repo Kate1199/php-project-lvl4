@@ -16,9 +16,9 @@ class TaskStatusPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user = null)
     {
-        return Auth::guest();
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class TaskStatusPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -53,7 +53,7 @@ class TaskStatusPolicy
      */
     public function update(User $user, TaskStatus $taskStatus)
     {
-        //
+        return $user;
     }
 
     /**
@@ -65,7 +65,7 @@ class TaskStatusPolicy
      */
     public function delete(User $user, TaskStatus $taskStatus)
     {
-        //
+        return $user;
     }
 
     /**
