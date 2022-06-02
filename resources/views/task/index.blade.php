@@ -14,11 +14,11 @@
                 </div>
 
                 <div class="col">
-                    {{ Form::select('filter[created_by_id]', $users, null, ['placeholder' => __('task.created_by'), 'class' => 'form-select me-2']) }}
+                    {{ Form::select('filter[created_by_id]', $users, optional($filters)['created_by_id'], ['placeholder' => __('task.created_by'), 'class' => 'form-select me-2']) }}
                 </div>
 
                 <div class="col">
-                    {{ Form::select('filter[assigned_to_id]', $users, null, ['placeholder' => __('task.assigned_to'), 'class' => 'form-select me-2']) }}
+                    {{ Form::select('filter[assigned_to_id]', $users, optional($filters)['assigned_to_id'], ['placeholder' => __('task.assigned_to'), 'class' => 'form-select me-2']) }}
                 </div>
 
                 <div class="col">
