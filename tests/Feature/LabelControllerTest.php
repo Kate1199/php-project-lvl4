@@ -38,13 +38,13 @@ class LabelControllerTest extends TestCase
 
     public function testStore(): void
     {
-        $label = Label::factory()->make();
+        $label = Label::factory()->make(['id' => 4]);
         $response = $this->actingAs($this->user)
             ->post(route('labels.store'), $label->toArray());
 
         $response->assertRedirect(route('labels.index'));
 
-        $this->assertDatabaseHas('labels', $label->toArray());
+        $this->assertModelExists($label);
     }
 
     public function testEdit(): void
@@ -58,22 +58,17 @@ class LabelControllerTest extends TestCase
 
     public function testUpdate(): void
     {
-        $faker = Factory::create();
-        $name = $faker->word();
-
         $label = Label::first();
-        $label->name = $name;
+        $updatedLabel = Label::factory()->make([
+            'id' => $label->id
+        ]);
 
         $response = $this->actingAs($this->user)
-            ->patch(route('labels.update', ['label' => $label->id]), ['name' => $name]);
+            ->patch(route('labels.update', ['label' => $label->id]), $updatedLabel->toArray());
 
         $response->assertRedirect(route('labels.index'));
 
-        $this->assertDatabaseHas('labels', [
-            'id' => $label->id,
-            'name' => $label->name,
-            'description' => $label->description
-        ]);
+        $this->assertModelExists($updatedLabel);
     }
 
     public function testDestroy(): void
