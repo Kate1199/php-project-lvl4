@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\Models\TaskStatus;
 use App\Models\User;
 
-class TaskStatusTest extends TestCase
+class TaskStatusControllerTest extends TestCase
 {
     private User $user;
 
