@@ -28,6 +28,7 @@ return [
     'verify_email' => 'Подтвердите email',
     'check_your_email' => 'Проверьте свой почтовый ящик',
     'did_not_receive_email' => 'Если вы не получили письмо',
-    'click_here' => 'то нажмите здесь'
+    'click_here' => 'то нажмите здесь',
+    'incorrect_length' => 'Пароль должен иметь длину не менее 8 символов'
 
 ];
