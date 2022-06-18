@@ -6,7 +6,7 @@ return [
     'task_deleted' => 'Задача успешно удалена',
     'status_created' => 'Статус успешно создан',
     'status_edited' => 'Статус успешно изменен',
-    'status_deleted' => 'Статус успешно удален',
+    'status_deleted' => 'Статус успешно удалён',
     'status_in_use' => 'Не удалось удалить статус',
     'label_created' => 'Метка успешно создана',
     'label_updated' => 'Метка успешно обновлена',
