@@ -31,8 +31,8 @@
           @guest
           @else
           <td>
-            <a href="{{ route('task_statuses.edit', $taskStatus->id) }}" class="text-decoration-none">{{ __('task_status.edit') }}</a>
-            <a href="{{ route('task_statuses.destroy', $taskStatus->id) }}" data-confirm="Вы уверены?"
+            <a href="{{ route('task_statuses.edit', $taskStatus) }}" class="text-decoration-none">{{ __('task_status.edit') }}</a>
+            <a href="{{ route('task_statuses.destroy', $taskStatus) }}" data-confirm="Вы уверены?"
               data-method="delete" rel="nofollow" class="text-danger text-decoration-none">{{ __('task_status.delete') }}</a>
           </td>
           @endguest
