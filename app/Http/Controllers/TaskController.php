@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    use COntrollerUtility;
+
     public function __construct()
     {
         $this->authorizeResource(Task::class, 'task');
@@ -29,15 +31,7 @@ class TaskController extends Controller
 
         $tasks = DB::table('tasks');
 
-        if (! is_null($filters)) {
-            foreach ($filters as $key => $filter) {
-                if (! is_null($filter)) {
-                    $tasks = $tasks->where([
-                        [$key, '=', $filter]
-                    ]);
-                }
-            }
-        }
+        $tasks = $this->filterTasks($filters, $tasks);
 
         $tasks = $tasks->leftJoin('task_statuses', 'task_statuses.id', '=', 'tasks.status_id')
                         ->leftJoin('users as users1', 'users1.id', '=', 'tasks.created_by_id')
@@ -45,8 +39,8 @@ class TaskController extends Controller
                         ->select('tasks.*', 'task_statuses.name as status', 'users1.name as created_by', 'users2.name as assigned_to')
                         ->paginate();
 
-        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
-        $users = User::all('id', 'name')->pluck('name', 'id');
+        $taskStatuses = $this->getAll(new TaskStatus());
+        $users = $this->getAll(new User());
         $id = Auth::id();
 
         return view('task.index', compact('tasks', 'taskStatuses', 'users', 'filters', 'id'));
@@ -61,9 +55,9 @@ class TaskController extends Controller
     {
         $task = new Task();
 
-        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
-        $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
-        $labels = Label::all('id', 'name')->pluck('name', 'id');
+        $taskStatuses = $this->getAll(new TaskStatus());
+        $assignedToUsers = $this->getAll(new User());
+        $labels = $this->getAll(new Label());
 
         return view('task.create', compact('task', 'taskStatuses', 'assignedToUsers', 'labels'));
     }
@@ -113,9 +107,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $taskStatuses = TaskStatus::all('id', 'name')->pluck('name', 'id');
-        $assignedToUsers = User::all('id', 'name')->pluck('name', 'id');
-        $labels = Label::all('id', 'name')->pluck('name', 'id');
+        $taskStatuses = $this->getAll(new TaskStatus());
+        $assignedToUsers = $this->getAll(new User());
+        $labels = $this->getAll(new Label());
 
         return view('task.edit', compact('task', 'taskStatuses', 'assignedToUsers', 'labels'));
     }
