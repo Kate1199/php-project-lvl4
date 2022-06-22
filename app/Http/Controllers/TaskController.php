@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    use COntrollerUtility;
+    use ControllerUtility;
 
     public function __construct()
     {
