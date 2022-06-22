@@ -11,7 +11,7 @@ class TaskStatusController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(TaskStatus::class, 'task_status');
+        $this->authorizeResource(TaskStatus::class, 'name');
     }
 
     /**
@@ -63,8 +63,9 @@ class TaskStatusController extends Controller
      * @param  \App\Models\TaskStatus  $taskStatus
      * @return \Illuminate\Http\Response
      */
-    public function edit(TaskStatus $taskStatus)
+    public function edit($name)
     {
+        $tasksStatus = TaskStatus::where('name', '=', $name);
         return view('task_status.edit', compact('taskStatus'));
     }
 

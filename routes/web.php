@@ -26,9 +26,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/send-email', [MailController::class, 'sendEmail']);
 
+Route::resource('task_statuses', TaskStatusController::class)->parameters([
+    'task_statuses' => 'name'
+]);
+
 Route::resources(
     [
-        'task_statuses' => TaskStatusController::class,
+        // 'task_statuses' => TaskStatusController::class,
         'tasks' => TaskController::class,
         'labels' => LabelController::class,
     ]
