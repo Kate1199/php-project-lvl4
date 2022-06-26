@@ -47,11 +47,11 @@ class TaskStatusControllerTest extends TestCase
 
     public function testEdit(): void
     {
-        $taskStatus = TaskStatus::first();
+        $name = TaskStatus::first()->name;
         $response = $this->actingAs($this->user)
-                        ->get(route('task_statuses.edit', ['task_status' => $taskStatus->id]));
+                        ->get(route('task_statuses.edit', ['task_status' => $name]));
 
-        $response->assertOk(route('task_statuses.edit', ['task_status' => $taskStatus->id]));
+        $response->assertOk(route('task_statuses.edit', ['task_status' => $name]));
     }
 
     public function testUpdate(): void
@@ -60,7 +60,7 @@ class TaskStatusControllerTest extends TestCase
         $editedTaskStatus = TaskStatus::factory()->make(['id' => $currentTaskStatus->id]);
 
         $response = $this->actingAs($this->user)
-                        ->patch(route('task_statuses.update', ['task_status' => $currentTaskStatus->id]), $editedTaskStatus->toArray());
+                        ->patch(route('task_statuses.update', ['task_status' => $currentTaskStatus]), $editedTaskStatus->toArray());
 
         $response->assertRedirect(route('task_statuses.index'));
 
@@ -71,7 +71,7 @@ class TaskStatusControllerTest extends TestCase
     {
         $taskStatus = TaskStatus::first();
         $response = $this->actingAs($this->user)
-                        ->delete(route('task_statuses.destroy', ['task_status' => $taskStatus->id]));
+                        ->delete(route('task_statuses.destroy', ['task_status' => $taskStatus]));
 
         $response->assertRedirect(route('task_statuses.index'));
 

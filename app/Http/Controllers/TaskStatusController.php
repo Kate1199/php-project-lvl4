@@ -63,7 +63,7 @@ class TaskStatusController extends Controller
      */
     public function edit($name)
     {
-        $taskStatus = TaskStatus::where('name', '=', $name)->first();
+        $taskStatus = TaskStatus::where('name', $name)->first();
 
         return view('task_status.edit', compact('taskStatus'));
     }
