@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:sanctum')->get('/task_statuses/{name}/edit', function (string $name) {
+    Illuminate\Support\Facade\Gate::authorize('edit', $name);
+});

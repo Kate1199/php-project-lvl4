@@ -51,6 +51,18 @@ class TaskStatusPolicy
      * @param  \App\Models\TaskStatus  $taskStatus
      * @return \Illuminate\Auth\Access\Response|bool
      */
+    public function edit(User $user, string $name)
+    {
+        return $user;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\TaskStatus  $taskStatus
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
     public function update(User $user, TaskStatus $taskStatus)
     {
         return $user;

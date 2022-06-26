@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class TaskStatusController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(TaskStatus::class, 'name');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +28,8 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', TaskStatus::class);
+
         $taskStatus = new TaskStatus();
 
         return view('task_status.create', compact('taskStatus'));
@@ -46,6 +43,7 @@ class TaskStatusController extends Controller
      */
     public function store(StoreTaskStatusRequest $request)
     {
+        $this->authorize('create', TaskStatus::class);
         $data = $request->validated();
 
         $taskStatus = new TaskStatus();
@@ -65,7 +63,8 @@ class TaskStatusController extends Controller
      */
     public function edit($name)
     {
-        $tasksStatus = TaskStatus::where('name', '=', $name);
+        $taskStatus = TaskStatus::where('name', '=', $name)->first();
+
         return view('task_status.edit', compact('taskStatus'));
     }
 
@@ -78,6 +77,7 @@ class TaskStatusController extends Controller
      */
     public function update(StoreTaskStatusRequest $request, TaskStatus $taskStatus)
     {
+        $this->authorize('update', $taskStatus);
         $data = $request->validated();
 
         $taskStatus->fill($data);
@@ -96,6 +96,8 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
+        $this->authorize('delete', $taskStatus);
+
         $tasksNumber = $taskStatus->tasks()->count();
 
         if ($taskStatus && $tasksNumber === 0) {
