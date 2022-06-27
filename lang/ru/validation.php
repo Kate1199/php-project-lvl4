@@ -131,10 +131,19 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'Пользователь с таким :attribute уже существует',
+    'unique' => 'Такой :attribute уже существует',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+
+    'custom' => [
+        'name' => [
+            'unique' => 'Статус с таким именем уже существует',
+        ],
+        'email' => [
+            'unique' => 'Пользователь с таким email уже существует'
+        ]
+    ],
 
       /*
     |--------------------------------------------------------------------------

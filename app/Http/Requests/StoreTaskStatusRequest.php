@@ -24,7 +24,7 @@ class StoreTaskStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required|unique:task_statuses,name'
         ];
     }
 }
