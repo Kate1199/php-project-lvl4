@@ -27,4 +27,16 @@ class StoreTaskStatusRequest extends FormRequest
             'name' => 'required|unique:task_statuses,name'
         ];
     }
+
+     /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.unique' => __('messages.status_exists'),
+        ];
+    }
 }

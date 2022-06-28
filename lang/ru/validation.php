@@ -131,30 +131,10 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'Такой :attribute уже существует',
+    'unique' => 'Пользователь с таким :attribute уже существует',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
-
-    'custom' => [
-        'name' => [
-            'unique' => 'Статус с таким именем уже существует',
-        ],
-        'email' => [
-            'unique' => 'Пользователь с таким email уже существует'
-        ]
-    ],
-
-      /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
 
     'attributes' => [
         'password' => 'пароль',
