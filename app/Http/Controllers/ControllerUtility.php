@@ -12,14 +12,21 @@ trait ControllerUtility
     {
         if (! is_null($filters)) {
             foreach ($filters as $key => $filter) {
-                if (! is_null($filter)) {
-                    $filteredTasks = $tasks->where([
-                        [$key, '=', $filter]
-                    ]);
-                } else {
-                    $filteredTasks = $tasks;
-                }
+                $filteredTasks = $this->filter($tasks, $key, $filter);
             }
+        } else {
+            $filteredTasks = $tasks;
+        }
+
+        return $filteredTasks;
+    }
+
+    private function filter(Builder $tasks, string $key, string $filter): array
+    {
+        if (! is_null($filter)) {
+            $filteredTasks = $tasks->where([
+                [$key, '=', $filter]
+            ]);
         } else {
             $filteredTasks = $tasks;
         }
